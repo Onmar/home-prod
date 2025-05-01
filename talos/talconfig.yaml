@@ -22,8 +22,7 @@ cniConfig:
 nodes:
   - hostname: "srv-services-01"
     ipAddress: "192.168.60.8"
-    installDiskSelector:
-      serial: "sda"
+    installDisk: "/dev/sda"
     machineSpec:
       secureboot: false
     talosImageURL: factory.talos.dev/installer/88d1f7a5c4f1d3aba7df787c448c1d3d008ed29cfb34af53fa0df4336a56040b
