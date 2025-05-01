@@ -1,0 +1,10 @@
+creation_rules:
+  - shamir_threshold: 1
+    key_groups:  # Only using keygroups so keys can be specified in a list
+    - age:
+      # Recovery
+      - age10gcvhz5mh2h6lnyu0jvxuzpg7w4j60clqtdsxk40c69l704wvpqsmumatr  # Vaultwarden
+      - age1yubikey1qwhy4tl638hfxvhr542hdsny7887r2h9u9krvjfelvhya4qf78fmklj2hcj  # YubiKey 1
+      - age1yubikey1qg8vk9mlz7rzfwftvqrwtf6nhlhyevxry6wz45elw4cprnp2cfas28uuzju  # YubiKey 2
+      # In-Use
+      - age198hvu2nvgj6zdt6vzfu75pn9uzav7fuyll5fyvd7t799r79f6s5qpr4nv6  # Controller

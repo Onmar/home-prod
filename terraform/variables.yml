@@ -1,0 +1,13 @@
+disk_storage: "local-zfs"
+nameserver: 9.9.9.9
+gateway: 192.168.60.1
+cidr: 24
+
+net_bridge: "vmbr0"
+net_tag: 60
+
+servers:
+  srv-services-01:
+    vmid: 6008
+    ip: 192.168.60.8
+    description: Kubernetes Server 01
