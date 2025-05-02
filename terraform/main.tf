@@ -30,6 +30,12 @@ resource "proxmox_vm_qemu" "srv-services" {
       scsi0 {
         disk {
           storage = local.variables.disk_storage
+          size    = "32G"
+        }
+      }
+      scsi1 {
+        disk {
+          storage = local.variables.disk_storage
           size    = "128G"
         }
       }
