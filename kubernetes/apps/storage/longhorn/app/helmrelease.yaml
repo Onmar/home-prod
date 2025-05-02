@@ -38,7 +38,7 @@ spec:
       v1DataEngine: true
       v2DataEngine: false
     defaultBackupStore:
-      backupTarger: "nfs://${SECRET_NFS_HOST}:${SECRET_NFS_BACKUP_PATH}"
+      backupTarget: "nfs://${SECRET_NFS_SERVER}:${SECRET_NFS_BACKUP_PATH}"
     ingress:
       enabled: true
       ingressClassName: internal
