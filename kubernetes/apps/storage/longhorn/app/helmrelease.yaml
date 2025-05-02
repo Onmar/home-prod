@@ -32,7 +32,7 @@ spec:
       defaultLonghornStaticStorageClass: longhorn
       defaultReplicaCount: 1
       orphanAutoDeletion: true
-      replicaAutoBalance: true
+      replicaAutoBalance: best-effort
       storageMinimalAvailablePercentage: 1  # Entire disk is reserved for longhorn, so no free space is necessary
       storageReservedPercentageForDefaultDisk: 10
       v1DataEngine: true
