@@ -5,6 +5,9 @@
     },
     "files.trimTrailingWhitespace": true,
     "sops.defaults.ageKeyFile": "age.key",
+    "terminal.integrated.env.linux": {
+        "EDITOR": "code --wait"
+    },
     "vs-kubernetes": {
         "vs-kubernetes.kubeconfig": "./kubeconfig",
         "vs-kubernetes.knownKubeconfigs": [
