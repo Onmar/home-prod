@@ -37,11 +37,11 @@ rules:
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
+kind: RoleBinding
 metadata:
   name: dashboard-read-only
 roleRef:
-  apiGroup: ""
+  apiGroup: rbac.authorization.k8s.io/v1
   kind: Role
   name: dashboard-read-only-role
 subjects:
