@@ -1,0 +1,49 @@
+---
+# kubectl -n monitoring create token kubernetes-dashboard-admin
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: dashboard-admin
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: dashboard-admin
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+  - kind: ServiceAccount
+    name: dashboard-admin
+
+---
+# kubectl -n monitoring create token dashboard-read-only
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: dashboard-read-only
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: dashboard-read-only-role
+rules:
+  - apiGroups: [""]
+    resources: ["pods", "services", "configmaps", "secrets", "deployments", "replicasets", "pods/log"]
+    verbs: ["get", "list", "watch"]
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: dashboard-read-only
+roleRef:
+  apiGroup: ""
+  kind: Role
+  name: dashboard-read-only-role
+subjects:
+  - kind: ServiceAccount
+    name: dashboard-read-only
