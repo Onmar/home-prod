@@ -1,5 +1,5 @@
 ---
-# kubectl -n monitoring create token kubernetes-dashboard-admin
+# kubectl -n monitoring create token dashboard-admin
 apiVersion: v1
 kind: ServiceAccount
 metadata:
