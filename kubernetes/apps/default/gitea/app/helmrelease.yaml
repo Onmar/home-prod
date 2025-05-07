@@ -55,7 +55,6 @@ spec:
       volumeName: gitea-storage
       accessModes:
         - ReadWriteOnce
-        - ReadWriteMany
     gitea:
       admin:
         password: "${SECRET_GITEA_ADMIN_PASSWORD}"
