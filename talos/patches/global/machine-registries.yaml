@@ -1,0 +1,9 @@
+machine:
+  registries:
+    config:
+      docker.io:
+        auth:
+          auth: "${auth_docker_io}"
+      ghcr.io:
+        auth:
+          auth: "${auth_ghcr_io}"
