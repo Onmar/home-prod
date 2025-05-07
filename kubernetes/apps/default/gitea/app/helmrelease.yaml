@@ -52,6 +52,8 @@ spec:
     persistence:
       storageClass: longhorn-backup
     gitea:
+      admin:
+        password: "${SECRET_GITEA_ADMIN_PASSWORD}"
       config:
         server:
           PROTOCOL: http
@@ -62,23 +64,23 @@ spec:
           DISABLE_REGISTRATION: "true"
         security:
           SECRET_KEY: "${SECRET_GITEA_SECRET_KEY}"
-      postgresql-ha:
-        enabled: false
-      postgresql:
-        enabled: true
-        global:
-          postgresql:
-            auth:
-              database: gitea
-              username: gitea
-              password: "${SECRET_GITEA_PG_PASSWORD}"
-            primary:
-              persistence:
-                storageClass: longhorn-backup
-        redis-cluster:
-          enabled: false
+    postgresql-ha:
+      enabled: false
+    postgresql:
+      enabled: true
+      global:
+        postgresql:
+          auth:
+            database: gitea
+            username: gitea
+            password: "${SECRET_GITEA_PG_PASSWORD}"
+          primary:
+            persistence:
+              storageClass: longhorn-backup
+    redis-cluster:
+      enabled: false
+    redis:
+      enabled: true
+      global:
         redis:
-          enabled: true
-          global:
-            redis:
-              password: "${SECRET_GITEA_REDIS_PASSWORD}"
+          password: "${SECRET_GITEA_REDIS_PASSWORD}"
