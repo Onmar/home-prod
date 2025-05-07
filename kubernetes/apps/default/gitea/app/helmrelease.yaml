@@ -1,0 +1,84 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrepository-source-v1.json
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: gitea
+spec:
+  interval: 1h
+  url: https://dl.gitea.com/charts/
+
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrelease-helm-v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: gitea
+spec:
+  interval: 1h
+  chart:
+    spec:
+      chart: gitea
+      version: 11.0.1
+      sourceRef:
+        kind: HelmRepository
+        name: gitea
+  install:
+    remediation:
+      retries: -1
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  values:
+    image:
+      repository: gitea
+      tag: 1.23.7
+    service:
+      ssh:
+        type: LoadBalancer
+        port: 22
+        annotations:
+          lbipam.cilium.io/ips: "192.168.60.131"
+          coredns.io/hostname: "gitea-srv.${SECRET_INTERNAL_DOMAIN}"
+    ingress:
+      enabled: true
+      ingressClassName: internal
+      hosts:
+        - host: "gitea.${SECRET_INTERNAL_DOMAIN}"
+          paths:
+            - path: /
+              pathType: Prefix
+    persistence:
+      storageClass: longhorn-backup
+    gitea:
+      config:
+        server:
+          PROTOCOL: http
+          DOMAIN: "gitea.${SECRET_INTERNAL_DOMAIN}"
+          SSH_DOMAIN: "gitea-srv.${SECRET_INTERNAL_DOMAIN}"
+          ROOT_URL: "https://gitea.${SECRET_INTERNAL_DOMAIN}"
+        service:
+          DISABLE_REGISTRATION: "true"
+        security:
+          SECRET_KEY: "${SECRET_GITEA_SECRET_KEY}"
+      postgresql-ha:
+        enabled: false
+      postgresql:
+        enabled: true
+        global:
+          postgresql:
+            auth:
+              database: gitea
+              username: gitea
+              password: "${SECRET_GITEA_PG_PASSWORD}"
+            primary:
+              persistence:
+                storageClass: longhorn-backup
+        redis-cluster:
+          enabled: false
+        redis:
+          enabled: true
+          global:
+            redis:
+              password: "${SECRET_GITEA_REDIS_PASSWORD}"
