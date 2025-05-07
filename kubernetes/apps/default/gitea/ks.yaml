@@ -15,7 +15,7 @@ spec:
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
-      - name: gitea-secrets
+      - name: ns-secrets
         kind: Secret
   prune: true
   retryInterval: 2m
