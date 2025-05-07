@@ -50,7 +50,9 @@ spec:
             - path: /
               pathType: Prefix
     persistence:
-      storageClass: longhorn-backup
+      size: 10Gi
+      storageClass: nfs-direct
+      volumeName: gitea-storage
     gitea:
       admin:
         password: "${SECRET_GITEA_ADMIN_PASSWORD}"
@@ -74,9 +76,10 @@ spec:
             database: gitea
             username: gitea
             password: "${SECRET_GITEA_PG_PASSWORD}"
-          primary:
-            persistence:
-              storageClass: longhorn-backup
+      primary:
+        persistence:
+          size: 10Gi
+          storageClass: longhorn-backup
     redis-cluster:
       enabled: false
     redis:
@@ -84,3 +87,7 @@ spec:
       global:
         redis:
           password: "${SECRET_GITEA_REDIS_PASSWORD}"
+      master:
+        persistence:
+          size: 8Gi
+          storageClass: longhorn
